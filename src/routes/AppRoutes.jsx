@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import Home from "../pages/Home";
+import PostDetail from "../pages/PostDetail";
 
 function AppRoutes() {
   return (
@@ -12,6 +13,7 @@ function AppRoutes() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/posts/:id" element={<PostDetail />} />
       </Routes>
 
       <Footer />
