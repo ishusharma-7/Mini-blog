@@ -1,5 +1,10 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  FaArrowLeft,
+  FaUserCircle,
+  FaRegClock,
+} from "react-icons/fa";
 
 import axiosInstance from "../api/axiosInstance";
 import Loading from "../components/Loading";
@@ -15,13 +20,10 @@ function PostDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        setLoading(true);
-
         const response = await axiosInstance.get(`/posts/${id}`);
-
         setPost(response.data);
       } catch (err) {
-        setError(err.message || "Failed to fetch post.");
+        setError(err.message || "Failed to load post.");
       } finally {
         setLoading(false);
       }
@@ -35,31 +37,57 @@ function PostDetail() {
   if (error) return <Error message={error} />;
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-10">
-      <Link
-        to="/"
-        className="mb-6 inline-block text-blue-600 hover:underline"
-      >
-        ← Back to Home
-      </Link>
+    <main className="min-h-screen bg-slate-100 px-6 py-12 dark:bg-slate-900">
 
-      <div className="rounded-3xl bg-white p-8 shadow-lg">
-        <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
-          Post #{post.id}
-        </span>
+      <div className="mx-auto max-w-4xl">
 
-        <h1 className="mt-6 text-4xl font-bold capitalize">
-          {post.title}
-        </h1>
+        <Link
+          to="/"
+          className="mb-8 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-white transition hover:bg-blue-700"
+        >
+          <FaArrowLeft />
+          Back to Posts
+        </Link>
 
-        <p className="mt-8 text-lg leading-8 text-gray-700">
-          {post.body}
-        </p>
+        <article className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-2xl dark:border-slate-700 dark:bg-slate-800">
 
-        <div className="mt-10 border-t pt-6 text-sm text-gray-500">
-          User ID: {post.userId}
-        </div>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+
+            <div className="flex items-center gap-3">
+              <FaUserCircle className="text-4xl text-blue-600" />
+
+              <div>
+                <p className="font-semibold text-slate-800 dark:text-white">
+                  User {post.userId}
+                </p>
+
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Blog Author
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <FaRegClock />
+              <span>5 min read</span>
+            </div>
+
+          </div>
+
+          <div className="mb-6 h-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
+
+          <h1 className="text-4xl font-extrabold leading-tight text-slate-900 dark:text-white">
+            {post.title}
+          </h1>
+
+          <p className="mt-8 whitespace-pre-line text-lg leading-8 text-slate-600 dark:text-slate-300">
+            {post.body}
+          </p>
+
+        </article>
+
       </div>
+
     </main>
   );
 }

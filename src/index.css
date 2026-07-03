@@ -1,13 +1,103 @@
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  min-height: 100%;
+/* Tailwind v4 Dark Variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Global Theme */
+
+html {
+  scroll-behavior: smooth;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
-  background: #f8fafc;
+  min-height: 100vh;
+
+  @apply bg-slate-100 text-slate-900
+  dark:bg-slate-900 dark:text-white;
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Smooth transitions */
+
+* {
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+
+/* Selection */
+
+::selection {
+  background: #2563eb;
+  color: white;
+}
+
+/* Glass Utility */
+
+.glass {
+  @apply rounded-3xl
+  border border-white/20
+  bg-white/70
+  shadow-xl
+  backdrop-blur-lg
+  dark:border-slate-700
+  dark:bg-slate-800/70;
+}
+
+/* Gradient Button */
+
+.btn-gradient {
+  @apply rounded-xl
+  bg-gradient-to-r
+  from-blue-600
+  to-indigo-600
+  px-6
+  py-3
+  font-semibold
+  text-white
+  transition
+  hover:scale-105
+  hover:shadow-xl;
+}
+
+/* Card */
+
+.card {
+  @apply rounded-3xl
+  bg-white
+  p-6
+  shadow-lg
+  transition-all
+  duration-300
+  hover:-translate-y-1
+  hover:shadow-2xl
+  dark:bg-slate-800;
 }
